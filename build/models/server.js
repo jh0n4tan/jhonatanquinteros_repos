@@ -24,7 +24,8 @@ class Server {
         this.paths = {
             simulate: '/api/simulateserver',
             organization: '/api/organization',
-            tribe: '/api/tribes'
+            tribe: '/api/tribes',
+            csv: '/api/csv'
         };
         this.app = (0, express_1.default)();
         this.middlewares();
@@ -45,6 +46,7 @@ class Server {
         this.app.use(this.paths.simulate, routes_1.simulateroutes);
         this.app.use(this.paths.organization, routes_1.organizationroutes);
         this.app.use(this.paths.tribe, routes_1.triberoutes);
+        this.app.use(this.paths.csv, routes_1.csvroutes);
     }
     listening() {
         this.app.listen(this.port, () => {

@@ -2,7 +2,7 @@ import express from "express";
 import config from '../config';
 import parser from 'body-parser';
 import cors from 'cors';
-import { simulateroutes,organizationroutes, triberoutes } from "../routes";
+import { simulateroutes,organizationroutes, triberoutes, csvroutes } from "../routes";
 import { AppDataSource } from "../db/cockroach.connection";
 
 export default class Server{   
@@ -11,7 +11,8 @@ export default class Server{
     private paths = {
         simulate:'/api/simulateserver',
         organization:'/api/organization',
-        tribe:'/api/tribes'
+        tribe:'/api/tribes',
+        csv:'/api/csv'
     };
 
     constructor(){
@@ -35,6 +36,7 @@ export default class Server{
         this.app.use(this.paths.simulate, simulateroutes);
         this.app.use(this.paths.organization, organizationroutes);
         this.app.use(this.paths.tribe, triberoutes);
+        this.app.use(this.paths.csv, csvroutes);
     }
 
     public listening(){

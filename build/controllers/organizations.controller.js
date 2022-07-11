@@ -15,7 +15,13 @@ const get_organizations = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const users = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).find();
     res.json(users);
 });
+const create_organization = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const organization = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).create(req.body);
+    const results = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).save(organization);
+    return res.status(200).send(results);
+});
 exports.default = {
-    get_organizations
+    get_organizations,
+    create_organization
 };
 //# sourceMappingURL=organizations.controller.js.map

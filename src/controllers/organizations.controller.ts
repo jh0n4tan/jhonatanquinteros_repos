@@ -7,8 +7,14 @@ const get_organizations = async(req:Request,res:Response)=>{
     res.json(users);
 };
 
+const create_organization = async(req:Request,res:Response)=>{    
+    const organization = await AppDataSource.getRepository(Organization).create(req.body)
+    const results = await AppDataSource.getRepository(Organization).save(organization)
+    return res.status(200).send(results);
+};
 
 
 export default {
-    get_organizations
+    get_organizations,
+    create_organization
 }

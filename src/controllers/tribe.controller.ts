@@ -61,6 +61,5 @@ const tribe_controller = async(req:Request,res:Response)=>{
 };
 
 
-export default {
-       tribe_controller
-}
+export default tribe_controller
+

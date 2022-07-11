@@ -2,14 +2,15 @@ import express from "express";
 import config from '../config';
 import parser from 'body-parser';
 import cors from 'cors';
-import { simulateroutes } from "../routes";
-
+import { simulateroutes,organizationroutes } from "../routes";
+import { AppDataSource } from "../db/cockroach.connection";
 
 export default class Server{   
     private app;
     private port = config.PORT || '4000';
     private paths = {
-        simulate:'/api/simulateserver'
+        simulate:'/api/simulateserver',
+        organization:'/api/organization'
     };
 
     constructor(){
@@ -19,7 +20,8 @@ export default class Server{
         this.db();
     }
 
-    private  db(){        
+    private async db(){        
+        await AppDataSource.initialize();
     }
 
     private middlewares(){
@@ -30,6 +32,7 @@ export default class Server{
 
     private routes(){          
         this.app.use(this.paths.simulate, simulateroutes);
+        this.app.use(this.paths.organization, organizationroutes);
     }
 
     public listening(){

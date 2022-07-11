@@ -30,9 +30,15 @@ const edit_organization = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const results = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).update(id, req.body);
     return res.send(results);
 });
+const delete_organization = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const results = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).delete(id);
+    return res.send(results);
+});
 exports.default = {
     get_organizations,
     create_organization,
-    edit_organization
+    edit_organization,
+    delete_organization
 };
 //# sourceMappingURL=organizations.controller.js.map

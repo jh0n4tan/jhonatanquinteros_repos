@@ -28,9 +28,16 @@ const edit_organization = async(req:Request,res:Response)=>{
     return res.send(results)
 };
 
+const delete_organization = async(req:Request,res:Response)=>{
+    const id = req.params.id;
+    const results = await AppDataSource.getRepository(Organization).delete(id);
+    return res.send(results);
+};
+
 
 export default {
     get_organizations,
     create_organization,
-    edit_organization
+    edit_organization,
+    delete_organization
 }

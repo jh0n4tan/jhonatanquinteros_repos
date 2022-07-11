@@ -20,8 +20,19 @@ const create_organization = (req, res) => __awaiter(void 0, void 0, void 0, func
     const results = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).save(organization);
     return res.status(200).send(results);
 });
+const edit_organization = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const organization = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).findOneBy({
+        id_organization: parseInt(id)
+    });
+    if (!organization)
+        return res.status(400).send('there is no organization to update');
+    const results = yield cockroach_connection_1.AppDataSource.getRepository(organization_model_1.Organization).update(id, req.body);
+    return res.send(results);
+});
 exports.default = {
     get_organizations,
-    create_organization
+    create_organization,
+    edit_organization
 };
 //# sourceMappingURL=organizations.controller.js.map

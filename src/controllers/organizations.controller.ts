@@ -14,7 +14,23 @@ const create_organization = async(req:Request,res:Response)=>{
 };
 
 
+const edit_organization = async(req:Request,res:Response)=>{
+    const id = req.params.id;
+
+    const organization = await AppDataSource.getRepository(Organization).findOneBy({
+        id_organization: parseInt(id)
+    });
+
+    if(!organization) return res.status(400).send('there is no organization to update')        
+        
+    const results = await AppDataSource.getRepository(Organization).update(id,req.body);
+
+    return res.send(results)
+};
+
+
 export default {
     get_organizations,
-    create_organization
+    create_organization,
+    edit_organization
 }

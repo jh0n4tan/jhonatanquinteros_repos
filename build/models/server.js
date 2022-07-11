@@ -23,7 +23,8 @@ class Server {
         this.port = config_1.default.PORT || '4000';
         this.paths = {
             simulate: '/api/simulateserver',
-            organization: '/api/organization'
+            organization: '/api/organization',
+            tribe: '/api/tribes'
         };
         this.app = (0, express_1.default)();
         this.middlewares();
@@ -43,6 +44,7 @@ class Server {
     routes() {
         this.app.use(this.paths.simulate, routes_1.simulateroutes);
         this.app.use(this.paths.organization, routes_1.organizationroutes);
+        this.app.use(this.paths.tribe, routes_1.triberoutes);
     }
     listening() {
         this.app.listen(this.port, () => {

@@ -4,17 +4,20 @@ describe('testing endpoint',()=>{
     describe('metrics by tribe',()=>{
         it('second scenario',async()=>{
 
-            const req = {
-                params: {id:7}
+            const req:any = {
+                params: {id:7}      
             }
 
-            const res = {
+            const res:any = {
                 status: jest.fn().mockReturnThis(),
                 send: jest.fn()
-            }
-            tribus(req:Request,res:Response);
+            }  
+            
+            const AppDataSource = async ():Promise<void>=>{
 
-            console.log(res.send.mock);
+            }
+
+            tribus(req,res);
             expect(res.status.mock.calls).toEqual([[404]]);
             expect(res.send.mock.calls).toEqual([[1]]);           
            

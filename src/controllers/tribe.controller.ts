@@ -31,11 +31,8 @@ const tribe_controller = ({ axios,AppDataSource,Tribe,Metrics,mockRequestValues 
        
               if(result.length===0){return res.status(200).send({msg:"La tribu no tiene repositorios que cumplan con la cobertura necesaria"})};
        
-              const mockConsult = await axios.get('http://localhost:3000/mockserver');
-              const filtrado = mockConsult.data[0].respositories.filter( (x:any)=>
-                     x.id==id_tribe
-              )
-       
+              const respositories = await axios.get('http://localhost:4000/api/simulateserver');              
+                 
               const arrResult = result.map((x:any)=>({
                      id:x.id_repository.id_repository,
                      name:x.id_repository.name.trim(),
@@ -46,7 +43,7 @@ const tribe_controller = ({ axios,AppDataSource,Tribe,Metrics,mockRequestValues 
                      bugs:x.bugs,
                      vulnerabilities:x.vulnerabilities,
                      hospots:x.hospot,
-                     verificationState:mockRequestValues[filtrado[0].state],
+                     verificationState:respositories.data.respositories.filter( (y:any)=>y.id==x.id_repository.id_repository)[0].state,
                      state:x.id_repository.state
               }))
        
